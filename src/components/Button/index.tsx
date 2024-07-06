@@ -1,8 +1,11 @@
 "use client";
-import { useQuizConfig } from "@/app/store";
+
+import useQuizConfig from "@/app/store";
+import Link from "next/link";
+
 export default function Button() {
 
-  const changeStatus = useQuizConfig((state:any) => state.changeStatus);
+  const changeStatus = useQuizConfig((state) => state.);
   const handleStart = () => {
     changeStatus("start")
   }
@@ -10,6 +13,7 @@ export default function Button() {
 
     return(
         <>
+        <Link href='/star'></Link>
          <button
         onClick={handleStart}
         type="button"

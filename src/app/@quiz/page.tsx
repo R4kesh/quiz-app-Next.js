@@ -32,17 +32,25 @@ export default function Quiz() {
 
           console.log('result',results)
           
-          let shuffledResults = results.map((e:questionT) => {
-            let value = [...e.incorrect_answers, e.correct_answer]
-              .map((value) => ({ value, sort: Math.random() }))
-              .sort((a, b) => a.sort - b.sort)
-              .map(({ value }) => value);
-            e.answers = [...value];
-            return e;
-          });
-          
-          setQuestions([...shuffledResults]);
+          if(results){
+            let shuffledResults = results.map((e:questionT) => {
+              let value = [...e.incorrect_answers, e.correct_answer]
+                .map((value) => ({ value, sort: Math.random() }))
+                .sort((a, b) => a.sort - b.sort)
+                .map(({ value }) => value);
+              e.answers = [...value];
+              return e;
+            });
+
+            setQuestions([...shuffledResults]);
           setLoading(false);
+
+          }else{
+            console.error('No results found') 
+          }
+         
+          
+          
         }
         getQuestions();
       }, [config.category, config.level, config.numberOfQuestion, config.type]);
@@ -124,9 +132,9 @@ export default function Quiz() {
                   className={cn(
                     "w-[40%] my-4 bg-white hover:bg-blue-600 hover:text-gray-100  text-gray-800 font-semibold py-4 px-4 shadow-blue-200   rounded-lg shadow-2xl",
                     {
-                      "bg-blue-600": !!answer && answer === e,
+                      "bg-green-600": !!answer && answer === e,
                       "bg-red-600": !!answer && answer !== e,
-                      "hover:bg-blue-600": !!answer && answer === e,
+                      "hover:bg-green-1000": !!answer && answer === e,
                       "hover:bg-red-600": !!answer && answer !== e,
                       "text-gray-200": !!answer,
                     }

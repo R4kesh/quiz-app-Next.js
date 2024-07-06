@@ -1,4 +1,6 @@
 "use client";
+
+import useQuizConfig from "@/app/store";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { useQuizConfig } from "@/app/store";
+
 
 import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -19,10 +21,11 @@ type CategoryType = {
 export default function DropdownOptions() {
   const [categories,setCategories] = useState<CategoryType[]>([])
 
-  const config = useQuizConfig((state:any) => state.config);
-  const addCategory = useQuizConfig((state:any) => state.addCategory);
-  const addLevel = useQuizConfig((state:any) => state.addLevel);
-  const addType = useQuizConfig((state:any) => state.addType);
+  const config = useQuizConfig((state) => state.config);
+  const catagoryname=useQuizConfig(state =>state.config.catagory.name)
+  const addCategory = useQuizConfig((state) => state.addCatagory);
+  const addLevel = useQuizConfig((state) => state.addLevel);
+  const addType = useQuizConfig((state) => state.addType);
 
   useEffect(()=>{
     async function fetchCategory(){
@@ -39,11 +42,11 @@ export default function DropdownOptions() {
         <div className="px-7 py-4 border-gray-100 border-2 rounded-xl w-1/3 mx-4">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex outline-none justify-between w-full">
-              {config.category.name ? config.category.name : "SELECT CATEGORY"}{" "}
+              {catagoryname ? catagoryname : "SELECT CATEGORY"}{" "}
               <ChevronDown />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="overflow-y-scroll">
-              <DropdownMenuLabel>{config.category.name ? config.category.name : "SELECT CATEGORY"}</DropdownMenuLabel>
+              <DropdownMenuLabel>{config.catagory.name ? catagoryname : "SELECT CATEGORY"}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               {
                 categories.map(category=>{
